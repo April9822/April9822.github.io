@@ -1,0 +1,4 @@
+# Dev-only artifacts — not part of the published site
+tools/
+shots/
+.workbuddy/

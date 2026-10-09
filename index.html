@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>王馨妍 Xinyan Wang · VR 情绪疗愈研究者</title>
+  <meta name="description" content="王馨妍（Xinyan Wang）——应用心理学背景的 VR 情绪疗愈创业者，HUG 创始人。4 篇学术论文、2 项软著、1 项发明专利。">
+  <meta property="og:title" content="王馨妍 Xinyan Wang">
+  <meta property="og:description" content="穿过军装，也深耕心理，想用科技力量，接住每一份没说出口的情绪。">
+  <!-- SEO / 搜索引擎可发现性增强 -->
+  <link rel="canonical" href="https://xinyan-wang-portfolio.app.workbuddy.host/">
+  <meta name="keywords" content="王馨妍,Xinyan Wang,April Wang,VR情绪疗愈,虚拟现实,情绪调节,应用心理学,西南大学,HUG,创业者,香港科技大学广州,心理学科研">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="王馨妍 Xinyan Wang">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xinyan-wang-portfolio.app.workbuddy.host/">
+  <meta property="og:site_name" content="王馨妍 Xinyan Wang">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:image" content="https://xinyan-wang-portfolio.app.workbuddy.host/assets/images/portfolio/hug-product-showcase.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <!-- 站点字体：霞鹜文楷·屏读版（中英混排温润文艺）；分片加载按需下载，失败自动回退系统字体 -->
+  <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
+  <link rel="stylesheet" href="https://registry.npmmirror.com/lxgw-wenkai-screen-webfont/1.7.0/files/style.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- 固定背景层：滚动时保持静止 -->
+  <div class="page-bg" aria-hidden="true"></div>
+  <!-- 全站 3D 叙事层：粒子随滚动在章节形态间过渡（情绪光点→曼陀罗→EEG→星宿→颂钵→水瓶座） -->
+  <canvas class="scene3d" id="scene3d" aria-hidden="true"></canvas>
+  <!-- 顶层光标特效层：z-index 最高，滚动时持续可见，滤色混合不遮挡内容 -->
+  <canvas class="cursor-layer" id="cursorLayer" aria-hidden="true"></canvas>
+
+  <!-- 顶部导航 -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#home" class="nav__brand">Xinyan<span>&nbsp;Wang</span><span class="nav__brand__dot" aria-hidden="true">·</span><span class="nav__brand__en">April</span></a>
+      <nav class="nav__links" id="navLinks" aria-label="主导航">
+        <a href="#home" class="nav__link" data-i18n="nav.home">首页</a>
+        <a href="#about" class="nav__link" data-i18n="nav.about">关于我</a>
+        <a href="#experience" class="nav__link" data-i18n="nav.experience">经历</a>
+        <a href="#writings" class="nav__link" data-i18n="nav.writings">文章</a>
+        <a href="#portfolio" class="nav__link" data-i18n="nav.portfolio">作品集</a>
+        <a href="#contact" class="nav__link" data-i18n="nav.contact">联系</a>
+      </nav>
+      <div class="nav__actions">
+        <div class="nav__themes" id="accentThemes" role="group" aria-label="主题颜色"><!-- JS 渲染色点 --></div>
+        <button class="lang-btn" id="langBtn" type="button" aria-label="切换语言">EN</button>
+        <button class="nav__burger" id="navBurger" type="button" aria-label="打开菜单" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <!-- 滚动进度条：随页面滚动增长的顶栏细线 -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  </header>
+
+  <!-- 移动端抽屉菜单 -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <a href="#home" class="drawer__link" data-i18n="nav.home">首页</a>
+    <a href="#about" class="drawer__link" data-i18n="nav.about">关于我</a>
+    <a href="#experience" class="drawer__link" data-i18n="nav.experience">经历</a>
+    <a href="#writings" class="drawer__link" data-i18n="nav.writings">文章</a>
+    <a href="#portfolio" class="drawer__link" data-i18n="nav.portfolio">作品集</a>
+    <a href="#contact" class="drawer__link" data-i18n="nav.contact">联系</a>
+  </div>
+  <div class="drawer__mask" id="drawerMask" hidden></div>
+
+  <main>
+    <!-- ============ 首页 ============ -->
+    <section class="hero" id="home">
+      <div class="orb orb--1" data-parallax="0.12" aria-hidden="true"></div>
+      <div class="orb orb--2" data-parallax="0.08" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <div class="hero__text reveal">
+          <p class="hero__greet" data-i18n="hero.greet">你好，我是</p>
+          <h1 class="hero__name" id="heroName">王馨妍</h1>
+          <p class="hero__en">Xinyan Wang</p>
+          <p class="hero__tagline" id="heroTagline">穿过军装，也深耕心理，想用科技力量，接住每一份没说出口的情绪。</p>
+          <p class="hero__intro" id="heroIntro"></p>
+          <ul class="hero__interests" id="heroInterests" aria-label="兴趣标签"></ul>
+          <div class="hero__cta">
+            <a href="#portfolio" class="btn btn--primary" data-i18n="hero.ctaWork">看看我的作品</a>
+            <a href="#contact" class="btn btn--ghost" data-i18n="hero.ctaContact">联系我</a>
+          </div>
+        </div>
+        <div class="hero__visual reveal" data-parallax="0.06">
+          <div class="avatar-ring">
+            <img src="assets/images/avatar.svg" alt="王馨妍" class="avatar" id="heroAvatar" width="800" height="800">
+          </div>
+          <div class="float-card float-card--1 glass" id="stat1"></div>
+          <div class="float-card float-card--2 glass" id="stat2"></div>
+          <div class="float-card float-card--3 glass" id="stat3"></div>
+        </div>
+      </div>
+      <a href="#about" class="hero__scroll" aria-label="向下滚动">
+        <span data-i18n="hero.scroll">继续了解</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v11m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+
+    <!-- ============ 关于我 ============ -->
+    <section class="section" id="about">
+      <div class="section__inner">
+        <h2 class="section__title" data-i18n="about.title">关于我</h2>
+        <p class="section__sub" data-i18n="about.sub">军人、心理学者、创业者——三段经历，一个方向</p>
+        <div class="about-grid">
+          <div class="timeline" id="timeline"><!-- JS 渲染 --></div>
+          <aside class="about-side">
+            <div class="glass skill-card">
+              <h3 data-i18n="about.skills">技能</h3>
+              <ul class="skill-list" id="skillList"><!-- JS 渲染 --></ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 经历 ============ -->
+    <section class="section section--mist" id="experience">
+      <div class="section__inner">
+        <h2 class="section__title" data-i18n="exp.title">项目与竞赛经历</h2>
+        <p class="section__sub" data-i18n="exp.sub">从 0 到 1，一条贯穿始终的主线</p>
+        <div class="exp-list" id="expList"><!-- JS 渲染 --></div>
+        <h3 class="exp-awards-title" data-i18n="exp.awardsTitle">竞赛与荣誉</h3>
+        <div class="awards" id="awardsList"><!-- JS 渲染 --></div>
+      </div>
+    </section>
+
+    <!-- ============ 文章 ============ -->
+    <section class="section" id="writings">
+      <div class="section__inner">
+        <h2 class="section__title" data-i18n="writing.title">文章</h2>
+        <!-- 文章章头：学术根基（不放序号，作品集子内容从 01 起编号） -->
+        <header class="chapter-head chapter-head--plain">
+          <div class="chapter-head__meta">
+            <span class="chapter-head__tag" data-i18n="chapter.rootsTag">ACADEMIC ROOTS</span>
+            <h3 class="chapter-head__title" data-i18n="chapter.rootsTitle">学术根基</h3>
+          </div>
+        </header>
+        <div class="paper-list" id="paperList"><!-- JS 渲染 --></div>
+      </div>
+    </section>
+
+    <!-- ============ 作品集 ============ -->
+    <section class="section" id="portfolio">
+      <div class="section__inner">
+        <h2 class="section__title" data-i18n="work.title">作品集</h2>
+        <p class="section__sub" data-i18n="work.sub">论文、专利、软著与产品——点击查看详情</p>
+        <!-- 成果叙事轴 · 章节 01：品牌形象（桉塔塔） -->
+        <header class="chapter-head" data-chapter="1">
+          <span class="chapter-head__no">01</span>
+          <div class="chapter-head__meta">
+            <span class="chapter-head__tag" data-i18n="chapter.c1tag">BRAND IP</span>
+            <h3 class="chapter-head__title" data-i18n="chapter.c1title">品牌形象</h3>
+            <p class="chapter-head__line" data-i18n="chapter.c1line">把「被接住」的感觉，变成一个看得见、抱得到的形象——桉塔塔。</p>
+          </div>
+        </header>
+        <!-- 桉塔塔 IP 展示卡：向导铭牌 + 3D 渲染场景 + 气泡 -->
+        <div class="mascot-showcase reveal">
+          <div class="mascot-showcase__media">
+            <img src="assets/images/antata-render-1.jpg" alt="桉塔塔——欢迎回来，给你一个元气满满的拥抱" class="mascot-showcase__scene" width="1200" height="675">
+            <img src="assets/images/antata-render-2.jpg" alt="桉塔塔——来吧，给你一个暖暖的晚安拥抱" class="mascot-showcase__scene" width="1200" height="675" loading="lazy">
+          </div>
+          <div class="mascot-showcase__side">
+            <span class="mascot-showcase__badge">ANTATA · GUIDE</span>
+            <h3 class="mascot-showcase__name">桉塔塔</h3>
+            <p class="mascot-showcase__bubble glass"><span id="mascotBubble"></span></p>
+          </div>
+        </div>
+        <div id="workGrid"><!-- JS 渲染：分类分区 + 章节头 02-06 --></div>
+      </div>
+    </section>
+
+    <!-- ============ 联系 ============ -->
+    <section class="section section--mist" id="contact">
+      <div class="orb orb--3" data-parallax="0.1" aria-hidden="true"></div>
+      <div class="section__inner">
+        <h2 class="section__title" data-i18n="contact.title">联系我</h2>
+        <p class="section__sub" data-i18n="contact.sub">无论是合作、研究还是随便聊聊，都欢迎</p>
+        <div class="contact-grid" id="contactGrid"><!-- JS 渲染 --></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="assets/images/logo-hug.png" alt="HUG" class="footer__logo" width="300" height="148" loading="lazy">
+    <p><span id="footerName">王馨妍 April</span> · <span data-i18n="footer.line">用科技接住每一份情绪</span></p>
+    <p class="footer__copy">© 2026 Xinyan Wang</p>
+  </footer>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="预览" hidden>
+    <button class="lightbox__close" id="lightboxClose" type="button" aria-label="关闭">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" type="button" aria-label="上一个">‹</button>
+    <figure class="lightbox__body">
+      <div class="lightbox__stage" id="lightboxStage"></div>
+      <figcaption class="lightbox__caption" id="lightboxCaption"></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" type="button" aria-label="下一个">›</button>
+  </div>
+
+  <!-- 氛围控制面板：音乐开关 + 光标颜色主题 -->
+  <div class="ambient-ctl glass" id="ambientCtl">
+    <button class="ambient-ctl__music" id="musicBtn" type="button" aria-label="播放氛围音乐" aria-pressed="false" title="氛围音乐">
+      <svg class="ico-note" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V6l10-2v11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="15" r="2.5" stroke="currentColor" stroke-width="2"/></svg>
+      <svg class="ico-pause" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5v14M15 5v14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/hero3d.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/ambient.js"></script>
+  <script src="js/controls.js"></script>
+</body>
+</html>
