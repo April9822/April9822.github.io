@@ -209,6 +209,44 @@
     </button>
   </div>
 
+  <!-- 微信内置浏览器引导层：仅在微信环境且页面可被渲染时显示（硬拦截域名下页面不加载，此层不会触发） -->
+  <div class="wechat-tip" id="wechatTip" hidden aria-hidden="true">
+    <div class="wechat-tip__arrow" aria-hidden="true">↗</div>
+    <div class="wechat-tip__card glass">
+      <p class="wechat-tip__title">微信限制了直接打开</p>
+      <p class="wechat-tip__desc">点击右上角 <b>⋯</b> → <b>在浏览器中打开</b>，即可完整体验视频、照片与表情包。</p>
+      <button class="wechat-tip__copy" id="wechatCopy" type="button">复制链接（去浏览器打开）</button>
+      <p class="wechat-tip__hint" id="wechatCopyHint" hidden>已复制链接，去浏览器粘贴打开即可 👌</p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var ua = navigator.userAgent || '';
+      if (/micromessenger/i.test(ua)) {
+        var tip = document.getElementById('wechatTip');
+        if (tip) tip.hidden = false;
+        var btn = document.getElementById('wechatCopy');
+        var hint = document.getElementById('wechatCopyHint');
+        function flash() { if (hint) hint.hidden = false; }
+        function fallbackCopy(text) {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = text; ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed'; ta.style.opacity = '0'; ta.style.top = '-9999px';
+            document.body.appendChild(ta); ta.select();
+            document.execCommand('copy'); document.body.removeChild(ta);
+          } catch (e) {}
+        }
+        if (btn) btn.addEventListener('click', function () {
+          var url = location.href;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(flash).catch(function () { fallbackCopy(url); flash(); });
+          } else { fallbackCopy(url); flash(); }
+        });
+      }
+    })();
+  </script>
+
   <script src="js/i18n.js"></script>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

@@ -486,6 +486,12 @@ window.SITE_DATA = {
           desc: { zh: "《VR 虚拟拥抱干预负性情绪的多感官环境优化——基于 EEG 的负性情绪干预效果研究》，2026.06 结题，评定合格。", en: "Multi-sensory optimization of VR hugging with EEG, completed 2026.06." },
           tags: ["国家级", "EEG"],
         },
+        {
+          type: "image", src: "assets/images/portfolio/cert-national-startup-2025.jpg",
+          title: { zh: "国家级创业训练项目结题证书", en: "National Entrepreneurship Program Completion Certificate" },
+          desc: { zh: "《“HUG”——一款基于 VR 的负性情绪调适软件》（202510635008X），2026.06 结题，评定优秀。", en: "“HUG” — a VR-based negative-emotion regulation software (202510635008X), completed 2026.06, rated Excellent." },
+          tags: ["国家级"],
+        },
       ],
     },
     {
